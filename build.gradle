@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.9.6'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.testng:testng:7.7.1'
+
+    implementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
+
+    implementation 'com.codeborne:selenide:7.1.0'
+
+
+    testImplementation 'io.qameta.allure:allure-java-commons:2.20.1'
+    testImplementation 'io.qameta.allure:allure-junit5:2.20.1'
+    testImplementation 'io.qameta.allure:allure-commandline:2.20.1'
+    testImplementation 'io.qameta.allure:allure-rest-assured:2.20.1'
+    testImplementation 'io.qameta.allure:allure-assertj:2.20.1'
+    implementation 'io.qameta.allure:allure-testng:2.20.1'
+    implementation 'io.qameta.allure:allure-selenide:2.20.1'
+
+    runtimeOnly 'org.aspectj:aspectjweaver:1.9.5'
+
+    implementation 'io.cucumber:cucumber-java:7.10.1'
+
+
+}
+
+test {
+    useTestNG()
+}
+task scoup(type:Test){
+    useTestNG(){
+        suites 'src/test/resources/scoup.xml'
+    }
+    if(project.hasProperty('browser')){
+        systemProperty 'browser', "${browser}"
+    }
+}
